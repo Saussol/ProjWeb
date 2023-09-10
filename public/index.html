@@ -7,6 +7,11 @@
     <header>
         <h1>Bienvenue sur notre site web</h1>
     </header>
+    <section>
+        <h2>Meilleur Joueur</h2>
+        <p>Nom: <span id="bestPlayerName"></span></p>
+        <p>Score: <span id="bestPlayerScore"></span></p>
+    </section>
     <nav>
         <ul>
             <li><a href="#">Accueil</a></li>
@@ -20,24 +25,25 @@
             <h2>À propos de nous</h2>
             <p>Nous sommes une entreprise dédiée à...</p>
         </section>
-        <section>
-            <h2>Dernier Score</h2>
-            <p id="lastScore"></p>
-        </section>
+        
     </main>
     <footer>
         <p>&copy; 2023 Notre Entreprise. Tous droits réservés.</p>
     </footer>
 
     <script>
-        // Code JavaScript pour récupérer et afficher le dernier score
-        fetch('/scoreBorad')
+        // Code JavaScript pour récupérer et afficher le meilleur joueur
+        fetch('/bestPlayer')
           .then(response => response.json())
           .then(data => {
-            const lastScore = document.getElementById('lastScore');
-            lastScore.textContent = `Dernier Score : ${data.lastScore}`;
+            const bestPlayerName = document.getElementById('bestPlayerName');
+            const bestPlayerScore = document.getElementById('bestPlayerScore');
+    
+            bestPlayerName.textContent = data.nom;
+            bestPlayerScore.textContent = data.score;
           })
           .catch(error => console.error('Erreur lors de la récupération des données :', error));
     </script>
+    
 </body>
 </html>

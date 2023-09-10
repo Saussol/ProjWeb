@@ -25,23 +25,28 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/index.html');
 });
 
-app.get('/scoreBorad', (req, res) => {
-  const sql = 'SELECT score FROM scoreBorad ORDER BY id DESC LIMIT 1';
+
+app.get('/bestPlayer', (req, res) => {
+  const sql = 'SELECT nom, score FROM scoreBorad ORDER BY score DESC LIMIT 1';
 
   db.query(sql, (err, result) => {
     if (err) {
-      console.error('Erreur lors de la récupération du dernier score :', err);
-      res.status(500).json({ error: 'Erreur lors de la récupération du dernier score.' });
+      console.error('Erreur lors de la récupération du meilleur joueur :', err);
+      res.status(500).json({ error: 'Erreur lors de la récupération du meilleur joueur.' });
       return;
     }
 
-    const lastScore = result[0].score;
-    console.log('Dernier score récupéré depuis la base de données :', lastScore);
+    if (result.length === 0) {
+      res.status(404).json({ error: 'Aucun joueur trouvé.' });
+      return;
+    }
 
-    res.json({ lastScore });
+    const bestPlayer = result[0];
+    console.log('Meilleur joueur récupéré depuis la base de données :', bestPlayer);
+
+    res.json(bestPlayer);
   });
 });
-
 
 // Démarrage du serveur
 app.listen(port, () => {
