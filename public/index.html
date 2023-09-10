@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page d'Accueil</title>
+    <!-- ... autres balises d'en-tête ... -->
 </head>
 <body>
     <header>
@@ -14,7 +12,7 @@
             <li><a href="#">Accueil</a></li>
             <li><a href="#">À propos</a></li>
             <li><a href="#">Services</a></li>
-
+            <li><a href="#">Contact</a></li>
         </ul>
     </nav>
     <main>
@@ -23,8 +21,8 @@
             <p>Nous sommes une entreprise dédiée à...</p>
         </section>
         <section>
-            <h2>Dernier ID Référencé</h2>
-            <p id="lastID"></p>
+            <h2>Dernier Score</h2>
+            <p id="lastScore"></p>
         </section>
     </main>
     <footer>
@@ -32,12 +30,12 @@
     </footer>
 
     <script>
-        // Code JavaScript pour récupérer et afficher le dernier ID référencé
-        fetch('/getLastID')
+        // Code JavaScript pour récupérer et afficher le dernier score
+        fetch('/getLastScore')
           .then(response => response.json())
           .then(data => {
-            const lastID = document.getElementById('lastID');
-            lastID.textContent = `Dernier ID Référencé : ${data.lastID}`;
+            const lastScore = document.getElementById('lastScore');
+            lastScore.textContent = `Dernier Score : ${data.lastScore}`;
           })
           .catch(error => console.error('Erreur lors de la récupération des données :', error));
     </script>

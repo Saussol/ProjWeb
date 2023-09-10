@@ -25,30 +25,22 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/index.html');
 });
 
-app.get('/getLastID', (req, res) => {
-  const sql = 'SELECT score FROM scoreBorad ORDER BY id DESC LIMIT 1';
+app.get('/getLastScore', (req, res) => {
+  const sql = 'SELECT score FROM scoreBoard ORDER BY id DESC LIMIT 1';
 
   db.query(sql, (err, result) => {
     if (err) {
-      console.error('Erreur lors de la récupération du dernier ID référencé :', err);
-      res.status(500).json({ error: 'Erreur lors de la récupération du dernier ID référencé.' });
+      console.error('Erreur lors de la récupération du dernier score :', err);
+      res.status(500).json({ error: 'Erreur lors de la récupération du dernier score.' });
       return;
     }
 
-    const lastID = result[0].id;
-    console.log('Dernier ID référencé récupéré depuis la base de données :', lastID);
+    const lastScore = result[0].score;
+    console.log('Dernier score récupéré depuis la base de données :', lastScore);
 
-    res.json({ lastID });
+    res.json({ lastScore });
   });
 });
-
-
-
-
-
-
-
-
 
 
 
