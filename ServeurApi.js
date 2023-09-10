@@ -58,25 +58,6 @@ app.get('/bestPlayer', (req, res) => {
 // Unity
 
 
-// Route pour enregistrer les données
-app.post('/saveNumGamesPlayed', (req, res) => {
-  const { playerName, numGamesPlayed } = req.body;
-
-  // Requête SQL pour insérer les données dans la table
-  const sql = 'INSERT INTO scoreBorad (name, score) VALUES (?, ?)';
-
-  // Exécutez la requête SQL
-  db.query(sql, [playerName, numGamesPlayed], (err, result) => {
-    if (err) {
-      console.error('Erreur lors de l\'enregistrement des données :', err);
-      res.status(500).json({ error: 'Erreur lors de l\'enregistrement des données.' });
-    } else {
-      console.log('Données enregistrées avec succès !');
-      res.json({ message: 'Données enregistrées avec succès.' });
-    }
-  });
-});
-
 
 // Démarrage du serveur
 app.listen(port, () => {
