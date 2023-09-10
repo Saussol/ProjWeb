@@ -35,11 +35,6 @@ app.get('/getLastScore', (req, res) => {
       return;
     }
 
-    if (result.length === 0) {
-      res.status(404).json({ error: 'Aucun score trouvé.' });
-      return;
-    }
-
     const lastScore = result[0].score;
     console.log('Dernier score récupéré depuis la base de données :', lastScore);
 
