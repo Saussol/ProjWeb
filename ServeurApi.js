@@ -25,7 +25,7 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/index.html');
 });
 
-app.get('/getLastScore', (req, res) => {
+app.get('/scoreBorad', (req, res) => {
   const sql = 'SELECT score FROM scoreBorad ORDER BY id DESC LIMIT 1';
 
   db.query(sql, (err, result) => {
