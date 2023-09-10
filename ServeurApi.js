@@ -25,8 +25,8 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/main.html');
 });
 
-app.get('/scoreBorad', (req, res) => {
-  const query = 'SELECT * FROM scoreBoard ORDER BY score DESC'; // Triez par score décroissant
+app.get('/leaderboard', (req, res) => {
+  const query = 'SELECT nom, score FROM scoreBoard ORDER BY score DESC LIMIT 1'; // Triez par score décroissant et limitez à 1 joueur
 
   db.query(query, (err, results) => {
     if (err) {
@@ -35,9 +35,10 @@ app.get('/scoreBorad', (req, res) => {
       return;
     }
 
-    res.json(results); // Envoyez les données triées au format JSON
+    res.json(results[0]); // Envoyez le premier joueur au format JSON
   });
 });
+
 
 
 
