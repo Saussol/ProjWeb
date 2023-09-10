@@ -26,12 +26,17 @@ app.get('/', (req, res) => {
 });
 
 app.get('/getLastScore', (req, res) => {
-  const sql = 'SELECT score FROM scoreBoard ORDER BY id DESC LIMIT 1';
+  const sql = 'SELECT score FROM scoreBorad ORDER BY id DESC LIMIT 1';
 
   db.query(sql, (err, result) => {
     if (err) {
       console.error('Erreur lors de la récupération du dernier score :', err);
       res.status(500).json({ error: 'Erreur lors de la récupération du dernier score.' });
+      return;
+    }
+
+    if (result.length === 0) {
+      res.status(404).json({ error: 'Aucun score trouvé.' });
       return;
     }
 
@@ -41,7 +46,6 @@ app.get('/getLastScore', (req, res) => {
     res.json({ lastScore });
   });
 });
-
 
 
 // Démarrage du serveur
