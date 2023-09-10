@@ -25,7 +25,7 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/main.html');
 });
 
-app.get('/leaderboard', (req, res) => {
+app.get('/scoreBoard', (req, res) => {
   const query = 'SELECT nom, score FROM scoreBoard ORDER BY score DESC LIMIT 1'; // Triez par score décroissant et limitez à 1 joueur
 
   db.query(query, (err, results) => {
