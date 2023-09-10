@@ -56,7 +56,22 @@ app.get('/bestPlayer', (req, res) => {
 
 
 // Unity
+app.post('/savescore', (req, res) => {
+  const { name, score } = req.body;
 
+  // Insérez le nom et le score dans la base de données
+  const sql = 'INSERT INTO scoreBorad (nom, score) VALUES (?, ?)';
+  db.query(sql, [name, score], (err, result) => {
+    if (err) {
+      console.error('Erreur lors de l\'enregistrement du score :', err);
+      res.status(500).json({ error: 'Erreur lors de l\'enregistrement du score.' });
+      return;
+    }
+
+    console.log('Score enregistré avec succès !');
+    res.status(200).json({ message: 'Score enregistré avec succès !' });
+  });
+});
 
 
 // Démarrage du serveur
