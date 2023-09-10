@@ -61,35 +61,70 @@ app.post('/savescore', (req, res) => {
 
   // Vérifiez le nombre d'entrées actuelles dans la base de données
   const countSql = 'SELECT COUNT(*) AS count FROM scoreBoard';
+  const selectLowestScoreSql = 'SELECT MIN(score) AS lowestScore FROM scoreBoard';
 
-  db.query(countSql, (err, result) => {
+  db.query(countSql, (err, resultCount) => {
     if (err) {
       console.error('Erreur lors de la récupération du nombre d\'entrées :', err);
       res.status(500).json({ error: 'Erreur lors de la récupération du nombre d\'entrées.' });
       return;
     }
 
-    const currentCount = result[0].count;
+    const currentCount = resultCount[0].count;
 
-    // Si le nombre d'entrées est déjà de 10, renvoyez une erreur
+    // Si le nombre d'entrées est déjà de 10, vérifiez le score le plus bas
     if (currentCount >= 10) {
-      console.error('Le tableau est plein. Impossible d\'ajouter un nouveau score.');
-      res.status(400).json({ error: 'Le tableau est plein. Impossible d\'ajouter un nouveau score.' });
-      return;
+      db.query(selectLowestScoreSql, (err, resultLowestScore) => {
+        if (err) {
+          console.error('Erreur lors de la récupération du score le plus bas :', err);
+          res.status(500).json({ error: 'Erreur lors de la récupération du score le plus bas.' });
+          return;
+        }
+
+        const lowestScore = resultLowestScore[0].lowestScore;
+
+        // Si le nouveau score est supérieur au score le plus bas, supprimez le score le plus bas
+        if (score > lowestScore) {
+          const deleteSql = 'DELETE FROM scoreBoard WHERE score = ? LIMIT 1';
+          db.query(deleteSql, [lowestScore], (err) => {
+            if (err) {
+              console.error('Erreur lors de la suppression du score le plus bas :', err);
+              res.status(500).json({ error: 'Erreur lors de la suppression du score le plus bas.' });
+              return;
+            }
+
+            // Maintenant, insérez le nouveau score
+            const insertSql = 'INSERT INTO scoreBoard (nom, score) VALUES (?, ?)';
+            db.query(insertSql, [name, score], (err) => {
+              if (err) {
+                console.error('Erreur lors de l\'enregistrement du score :', err);
+                res.status(500).json({ error: 'Erreur lors de l\'enregistrement du score.' });
+                return;
+              }
+
+              console.log('Score enregistré avec succès !');
+              res.status(200).json({ message: 'Score enregistré avec succès !' });
+            });
+          });
+        } else {
+          console.error('Le tableau est plein et le score est inférieur au score le plus bas.');
+          res.status(400).json({ error: 'Le tableau est plein et le score est inférieur au score le plus bas.' });
+        }
+      });
+    } else {
+      // Si le nombre d'entrées est inférieur à 10, insérez simplement le nouveau score
+      const insertSql = 'INSERT INTO scoreBoard (nom, score) VALUES (?, ?)';
+      db.query(insertSql, [name, score], (err) => {
+        if (err) {
+          console.error('Erreur lors de l\'enregistrement du score :', err);
+          res.status(500).json({ error: 'Erreur lors de l\'enregistrement du score.' });
+          return;
+        }
+
+        console.log('Score enregistré avec succès !');
+        res.status(200).json({ message: 'Score enregistré avec succès !' });
+      });
     }
-
-    // Si le nombre d'entrées est inférieur à 10, insérez le nouveau score
-    const insertSql = 'INSERT INTO scoreBoard (nom, score) VALUES (?, ?)';
-    db.query(insertSql, [name, score], (err, result) => {
-      if (err) {
-        console.error('Erreur lors de l\'enregistrement du score :', err);
-        res.status(500).json({ error: 'Erreur lors de l\'enregistrement du score.' });
-        return;
-      }
-
-      console.log('Score enregistré avec succès !');
-      res.status(200).json({ message: 'Score enregistré avec succès !' });
-    });
   });
 });
 
