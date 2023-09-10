@@ -25,7 +25,7 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/index.html');
 });
 
-
+// Web
 app.get('/bestPlayer', (req, res) => {
   const sql = 'SELECT nom, score FROM scoreBorad ORDER BY score DESC LIMIT 1';
 
@@ -47,6 +47,27 @@ app.get('/bestPlayer', (req, res) => {
     res.json(bestPlayer);
   });
 });
+
+
+
+// Unity
+app.post('/ajouterScore', (req, res) => {
+  const { playerName, playerScore } = req.body;
+
+  const sql = 'INSERT INTO scoreBorad (nom, score) VALUES (?, ?)';
+
+  db.query(sql, [playerName, playerScore], (err, result) => {
+    if (err) {
+      console.error('Erreur lors de l\'ajout du score :', err);
+      res.status(500).json({ error: 'Erreur lors de l\'ajout du score.' });
+      return;
+    }
+
+    console.log('Score ajouté avec succès !');
+    res.json({ message: 'Score ajouté avec succès.' });
+  });
+});
+
 
 // Démarrage du serveur
 app.listen(port, () => {
