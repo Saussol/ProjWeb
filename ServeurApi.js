@@ -20,6 +20,11 @@ db.connect((err) => {
   console.log('Connecté à la base de données MySQL');
 });
 
+// Define a route to serve the HTML page
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/public/main.html');
+});
+
 
 // Démarrage du serveur
 app.listen(port, () => {
