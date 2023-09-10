@@ -1,8 +1,12 @@
 const express = require('express');
 const mysql = require('mysql');
-
+const bodyParser = require('body-parser');
 const app = express();
 const port = 3000;
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(cors());
 
 // Configuration de la connexion à la base de données MySQL
 const db = mysql.createConnection({
@@ -51,9 +55,7 @@ app.get('/bestPlayer', (req, res) => {
 
 
 // Unity
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-app.use(cors());
+
 
 // Route pour enregistrer les données
 app.post('/saveNumGamesPlayed', (req, res) => {
