@@ -25,6 +25,21 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/main.html');
 });
 
+app.get('/leaderboard', (req, res) => {
+  const query = 'SELECT * FROM scoreBoard ORDER BY score DESC'; // Triez par score décroissant
+
+  db.query(query, (err, results) => {
+    if (err) {
+      console.error('Erreur lors de la récupération des données :', err);
+      res.status(500).json({ error: 'Erreur lors de la récupération des données.' });
+      return;
+    }
+
+    res.json(results); // Envoyez les données triées au format JSON
+  });
+});
+
+
 
 // Démarrage du serveur
 app.listen(port, () => {

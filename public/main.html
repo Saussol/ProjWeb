@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page d'Accueil</title>
+    <!-- ... autres balises d'en-tête ... -->
 </head>
 <body>
     <header>
@@ -23,16 +21,27 @@
             <p>Nous sommes une entreprise dédiée à...</p>
         </section>
         <section>
-            <h2>Nos Services</h2>
-            <ul>
-                <li>Service 1</li>
-                <li>Service 2</li>
-                <li>Service 3</li>
-            </ul>
+            <h2>Classement</h2>
+            <ul id="leaderboard"></ul>
         </section>
     </main>
     <footer>
         <p>&copy; 2023 Notre Entreprise. Tous droits réservés.</p>
     </footer>
+
+    <script>
+        // Code JavaScript pour récupérer et afficher le classement des joueurs
+        fetch('/leaderboard')
+          .then(response => response.json())
+          .then(data => {
+            const leaderboard = document.getElementById('leaderboard');
+            data.forEach(player => {
+              const listItem = document.createElement('li');
+              listItem.textContent = `${player.nom} - Score : ${player.score}`;
+              leaderboard.appendChild(listItem);
+            });
+          })
+          .catch(error => console.error('Erreur lors de la récupération des données :', error));
+    </script>
 </body>
 </html>
