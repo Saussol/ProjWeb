@@ -20,11 +20,16 @@ db.connect((err) => {
   console.log('Connecté à la base de données MySQL');
 });
 
+// Define a route to serve the HTML page
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/public/index.html');
+});
+
 //  WEB
 // Route pour récupérer le dernier ID référencé depuis la base de données
 app.get('/getLastID', (req, res) => {
   // Requête SQL pour récupérer le dernier ID trié par ordre décroissant
-  const sql = 'SELECT id FROM gamename ORDER BY id DESC LIMIT 1';
+  const sql = 'SELECT score FROM scoreBorad ORDER BY id DESC LIMIT 1';
 
   // Exécutez la requête sur la connexion à la base de données
   connection.query(sql, (err, result) => {
