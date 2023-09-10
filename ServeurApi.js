@@ -60,16 +60,42 @@ app.post('/savescore', (req, res) => {
   const { name, score } = req.body;
 
   // Insérez le nom et le score dans la base de données
-  const sql = 'INSERT INTO scoreBorad (nom, score) VALUES (?, ?)';
-  db.query(sql, [name, score], (err, result) => {
+  const insertSql = 'INSERT INTO scoreBoard (name, score) VALUES (?, ?)';
+  const selectSql = 'SELECT * FROM scoreBoard ORDER BY score ASC LIMIT 1';
+
+  db.query(insertSql, [name, score], (err, result) => {
     if (err) {
       console.error('Erreur lors de l\'enregistrement du score :', err);
       res.status(500).json({ error: 'Erreur lors de l\'enregistrement du score.' });
       return;
     }
 
-    console.log('Score enregistré avec succès !');
-    res.status(200).json({ message: 'Score enregistré avec succès !' });
+    // Vérifiez si le tableau a plus de 10 lignes
+    db.query(selectSql, (err, lowestScore) => {
+      if (err) {
+        console.error('Erreur lors de la récupération du score le plus bas :', err);
+        res.status(500).json({ error: 'Erreur lors de la récupération du score le plus bas.' });
+        return;
+      }
+
+      if (lowestScore.length > 0 && score > lowestScore[0].score) {
+        // Supprimez le score le plus bas s'il y en a plus de 10
+        const deleteSql = 'DELETE FROM scoreBoard WHERE id = ?';
+        db.query(deleteSql, [lowestScore[0].id], (err) => {
+          if (err) {
+            console.error('Erreur lors de la suppression du score le plus bas :', err);
+            res.status(500).json({ error: 'Erreur lors de la suppression du score le plus bas.' });
+            return;
+          }
+
+          console.log('Score le plus bas supprimé avec succès !');
+          res.status(200).json({ message: 'Score enregistré avec succès !' });
+        });
+      } else {
+        console.log('Score enregistré avec succès !');
+        res.status(200).json({ message: 'Score enregistré avec succès !' });
+      }
+    });
   });
 });
 
