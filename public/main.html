@@ -31,7 +31,7 @@
 
     <script>
         // Code JavaScript pour récupérer et afficher le meilleur joueur
-        fetch('/leaderboard')
+        fetch('/scoreBoard')
           .then(response => response.json())
           .then(player => {
             const bestPlayer = document.getElementById('bestPlayer');
