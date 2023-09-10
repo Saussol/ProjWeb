@@ -51,20 +51,22 @@ app.get('/bestPlayer', (req, res) => {
 
 
 // Unity
-app.post('/ajouterScore', (req, res) => {
-  const { playerName, playerScore } = req.body;
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(cors());
 
-  const sql = 'INSERT INTO scoreBorad (nom, score) VALUES (?, ?)';
+app.post('/saveNumGamesPlayed', (req, res) => {
+  const { playerName, numGamesPlayed } = req.body;
 
-  db.query(sql, [playerName, playerScore], (err, result) => {
+  const sql = 'INSERT INTO gamename (playerName, numGamesPlayed) VALUES (?, ?)';
+  connection.query(sql, [playerName, numGamesPlayed], (err, result) => {
     if (err) {
-      console.error('Erreur lors de l\'ajout du score :', err);
-      res.status(500).json({ error: 'Erreur lors de l\'ajout du score.' });
-      return;
+      console.error('Erreur lors de l\'enregistrement des données :', err);
+      res.status(500).send('Erreur lors de l\'enregistrement des données.');
+    } else {
+      console.log('Données enregistrées avec succès !');
+      res.send('Données enregistrées avec succès !');
     }
-
-    console.log('Score ajouté avec succès !');
-    res.json({ message: 'Score ajouté avec succès.' });
   });
 });
 
