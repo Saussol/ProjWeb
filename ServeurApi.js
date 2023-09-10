@@ -79,9 +79,11 @@ app.post('/savescore', (req, res) => {
       }
 
       if (lowestScore.length > 0 && score > lowestScore[0].score) {
-        // Supprimez le score le plus bas s'il y en a plus de 10
+        const lowestScoreId = lowestScore[0].id;
+
+        // Supprimez le score le plus bas (et le nom associé)
         const deleteSql = 'DELETE FROM scoreBorad WHERE id = ?';
-        db.query(deleteSql, [lowestScore[0].id], (err) => {
+        db.query(deleteSql, [lowestScoreId], (err) => {
           if (err) {
             console.error('Erreur lors de la suppression du score le plus bas :', err);
             res.status(500).json({ error: 'Erreur lors de la suppression du score le plus bas.' });
