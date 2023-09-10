@@ -60,8 +60,8 @@ app.post('/savescore', (req, res) => {
   const { name, score } = req.body;
 
   // Insérez le nom et le score dans la base de données
-  const insertSql = 'INSERT INTO scoreBoard (name, score) VALUES (?, ?)';
-  const selectSql = 'SELECT * FROM scoreBoard ORDER BY score ASC LIMIT 1';
+  const insertSql = 'INSERT INTO scoreBorad (nom, score) VALUES (?, ?)';
+  const selectSql = 'SELECT * FROM scoreBorad ORDER BY score ASC LIMIT 1';
 
   db.query(insertSql, [name, score], (err, result) => {
     if (err) {
@@ -80,7 +80,7 @@ app.post('/savescore', (req, res) => {
 
       if (lowestScore.length > 0 && score > lowestScore[0].score) {
         // Supprimez le score le plus bas s'il y en a plus de 10
-        const deleteSql = 'DELETE FROM scoreBoard WHERE id = ?';
+        const deleteSql = 'DELETE FROM scoreBorad WHERE id = ?';
         db.query(deleteSql, [lowestScore[0].id], (err) => {
           if (err) {
             console.error('Erreur lors de la suppression du score le plus bas :', err);
