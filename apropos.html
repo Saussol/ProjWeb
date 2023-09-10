@@ -35,22 +35,7 @@
     }
   </script>
 
-<script>
-  // Fonction pour effectuer une requête AJAX à l'API
-  function getLastID() {
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'http://localhost:3000/getLastID', true);
-    xhr.onreadystatechange = function() {
-      if (xhr.readyState === 4 && xhr.status === 200) {
-        const response = JSON.parse(xhr.responseText);
-        document.getElementById('lastIDValue').innerText = response.lastID;
-      }
-    };
-    xhr.send();
-  }
 
-  // Appeler la fonction pour récupérer le dernier ID au chargement de la page
-  getLastID();
 </script>
   
 </body>
