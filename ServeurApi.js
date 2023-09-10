@@ -20,22 +20,24 @@ db.connect((err) => {
   console.log('Connecté à la base de données MySQL');
 });
 
-// Define a route to serve the HTML page
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/public/main.html');
-});
+//  WEB
+// Route pour récupérer le dernier ID référencé depuis la base de données
+app.get('/getLastID', (req, res) => {
+  // Requête SQL pour récupérer le dernier ID trié par ordre décroissant
+  const sql = 'SELECT id FROM gamename ORDER BY id DESC LIMIT 1';
 
-app.get('/scoreBoard', (req, res) => {
-  const query = 'SELECT nom, score FROM scoreBoard ORDER BY score DESC LIMIT 1'; // Triez par score décroissant et limitez à 1 joueur
-
-  db.query(query, (err, results) => {
+  // Exécutez la requête sur la connexion à la base de données
+  connection.query(sql, (err, result) => {
     if (err) {
-      console.error('Erreur lors de la récupération des données :', err);
-      res.status(500).json({ error: 'Erreur lors de la récupération des données.' });
-      return;
-    }
+      console.error('Erreur lors de la récupération du dernier ID référencé :', err);
+      res.status(500).send('Erreur lors de la récupération du dernier ID référencé.');
+    } else {
+      const lastID = result[0].id;
+      console.log('Dernier ID référencé récupéré depuis la base de données :', lastID);
 
-    res.json(results[0]); // Envoyez le premier joueur au format JSON
+      // Envoyez le dernier ID en tant que réponse JSON
+      res.json({ lastID });
+    }
   });
 });
 
