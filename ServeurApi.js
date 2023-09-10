@@ -25,7 +25,7 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/main.html');
 });
 
-app.get('/leaderboard', (req, res) => {
+app.get('/scoreBorad', (req, res) => {
   const query = 'SELECT * FROM scoreBoard ORDER BY score DESC'; // Triez par score décroissant
 
   db.query(query, (err, results) => {
