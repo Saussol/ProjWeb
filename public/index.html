@@ -85,21 +85,21 @@
 </body>
 
 <script>
-    const getBestPlayers = async () => {
-      const response = await fetch('/bestPlayers');
-      const data = await response.json();
+    const getBestPlayer = async () => {
+      const player = await getBestPlayer();
   
       const podium = document.querySelector('.podium');
-      data.forEach((player, index) => {
-        const playerElement = podium.querySelector(`#player${index + 1}`);
-        if (playerElement) {
-          playerElement.querySelector('span#player1Name').textContent = player.nom;
-          playerElement.querySelector('span#player1Score').textContent = player.score;
-        }
-      });
+      if (player) {
+        const playerElement = podium.querySelector('.player1');
+        playerElement.querySelector('span#player1Name').textContent = player.nom;
+        playerElement.querySelector('span#player1Score').textContent = player.score;
+      } else {
+        playerElement.querySelector('span#player1Name').textContent = 'Aucun joueur';
+        playerElement.querySelector('span#player1Score').textContent = '0';
+      }
     };
   
-    getBestPlayers();
+    getBestPlayer();
   </script>
 
 </html>

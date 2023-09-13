@@ -31,22 +31,20 @@ app.get('/', (req, res) => {
 });
 
 // Web
-const getBestPlayers = () => {
-  // Get the best players from the database
-  const sql = `SELECT nom, score FROM scoreBorad ORDER BY score DESC LIMIT 3`;
+const getBestPlayer = () => {
+  // Get the best player from the database
+  const sql = `SELECT nom, score FROM scoreBoard ORDER BY score DESC LIMIT 1`;
   const results = db.query(sql);
 
-  // Create an array of the best players
-  const players = [];
-  for (const row of results) {
-    players.push({
-      nom: row.nom,
-      score: row.score,
-    });
+  // Return the best player
+  if (results.length > 0) {
+    return {
+      nom: results[0].nom,
+      score: results[0].score,
+    };
+  } else {
+    return null;
   }
-
-  // Return the best players
-  return players;
 };
 
 
