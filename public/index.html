@@ -1,106 +1,11 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page Web avec Jeu Unity</title>
-    <style>
-        body {
-            background-color: #111; /* Fond sombre */
-            color: #fff; /* Texte blanc */
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            height: 100vh;
-        }
-        header {
-            text-align: center;
-            padding: 20px;
-        }
-        #unity-container {
-            text-align: center;
-            width: 100%;
-            max-width: 800px;
-        }
-        nav ul {
-            list-style: none;
-            padding: 0;
-        }
-        nav ul li {
-            display: inline;
-            margin-right: 20px;
-        }
-        section {
-            text-align: center;
-            margin-top: 30px;
-        }
-        .podium {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 20px;
-        }
-        .player {
-            border: 1px solid #fff;
-            padding: 10px;
-            width: 200px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Meilleur joueur</title>
 </head>
 <body>
-    <header>
-        <h1>Bienvenue sur notre site web</h1>
-    </header>
-    <div id="unity-container">
-        <!-- Intégration de votre jeu Unity ici -->
-        <!-- Remplacez cette section par le code d'intégration de votre jeu -->
-        <!-- Par exemple, vous pouvez utiliser une iframe pour intégrer votre jeu -->
-        <!--<iframe src="./game/test.html" width="800" height="600"></iframe>-->
-    </div>
-    <main>
-        <section>
-            <h2>Podium des Meilleurs Joueurs</h2>
-            <div class="podium">
-                <div class="player">
-                    <h3>Joueur 1</h3>
-                    <p>Nom: <span id="player1Name"></span></p>
-                    <p>Score: <span id="player1Score"></span></p>
-                </div>
-                <div class="player">
-                    <h3>Joueur 2</h3>
-                    <p>Nom: <span id="player2Name"></span></p>
-                    <p>Score: <span id="player2Score"></span></p>
-                </div>
-                <div class="player">
-                    <h3>Joueur 3</h3>
-                    <p>Nom: <span id="player3Name"></span></p>  
-                    <p>Score: <span id="player3Score"></span></p>
-                </div>
-            </div>
-        </section>
-    </main>
+  <h1>Meilleur joueur</h1>
+  <div id="meilleur-joueur"></div>
 </body>
-
-<script>
-    const getBestPlayer = () => {
-      const response = fetch('/bestPlayer');
-      const data = response.json();
-  
-      const podium = document.querySelector('.podium');
-      if (data) {
-        const playerElement = podium.querySelector('.player1');
-        playerElement.querySelector('span#player1Name').textContent = data.nom;
-        playerElement.querySelector('span#player1Score').textContent = data.score;
-      } else {
-        playerElement.querySelector('span#player1Name').textContent = 'Aucun joueur';
-        playerElement.querySelector('span#player1Score').textContent = '0';
-      }
-    };
-  
-    getBestPlayer();
-  </script>
-
 </html>

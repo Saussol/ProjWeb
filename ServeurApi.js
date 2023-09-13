@@ -31,19 +31,20 @@ app.get('/', (req, res) => {
 });
 
 // Web
-app.get('/bestPlayer', (req, res) => {
-  // Get the best player from the database
-  const sql = `SELECT nom, score FROM scoreBoard ORDER BY score DESC LIMIT 1`;
-  const results = db.query(sql);
-
-  // Return the best player
-  if (results.length > 0) {
-    res.json(results[0]);
-  } else {
-    res.status(404).send('Aucun joueur');
+// Récupération du score du meilleur joueur
+connection.query("SELECT nom, score FROM scoreBoard ORDER BY score DESC LIMIT 1", (err, rows) => {
+  if (err) {
+    console.error(err);
+    return;
   }
-});
 
+  // Affichage du nom et du score du meilleur joueur
+  meilleurJoueur.innerHTML = `
+    <h2>Meilleur joueur</h2>
+    <p>Nom: ${rows[0].nom}</p>
+    <p>Score: ${rows[0].score}</p>
+  `;
+});
 
 // Unity
 app.post('/savescore', (req, res) => {
