@@ -4,49 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meilleur Joueur</title>
+
+    <style>
+        body {
+            text-align: center; /* Centrer le contenu horizontalement */
+        }
+
+        #top3List {
+            list-style-type: none; /* Supprimer les puces de la liste */
+            padding: 0; /* Supprimer la marge intérieure de la liste */
+        }
+
+        #top3List li {
+            font-size: 18px; /* Taille de la police pour chaque élément */
+            margin: 10px 0; /* Marge supérieure et inférieure entre les éléments de la liste */
+            padding: 5px; /* Espacement interne autour de chaque élément */
+            background-color: #f2f2f2; /* Couleur de fond grise */
+            border-radius: 5px; /* Coins arrondis */
+            display: inline-block; /* Affichage en ligne pour que les éléments apparaissent côte à côte */
+        }
+    </style>
 </head>
 <body>
-    <h1>Meilleur Joueur</h1>
-    <p>Nom du meilleur joueur: <span id="meilleurNom"></span></p>
-    <p>Score du meilleur joueur: <span id="meilleurScore"></span></p>
+    <h2>Top 3 Joueurs</h2>
+    <ul id="top3List"></ul>
 
-</body>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Utilisez la méthode fetch pour récupérer les données des trois meilleurs scores depuis votre API
+            fetch("/top3Scores")
+                .then(response => response.json())
+                .then(data => {
+                    const top3List = document.getElementById("top3List");
 
-
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    // Utilisez la méthode fetch pour récupérer les données du meilleur joueur depuis votre API
-    fetch("/meilleurJoueur")
-      .then(response => response.json())
-      .then(data => {
-        // Mettez à jour les éléments HTML avec les informations du meilleur joueur
-        document.getElementById("meilleurNom").textContent = data.nom;
-        document.getElementById("meilleurScore").textContent = data.score;
-      })
-      .catch(error => console.error("Une erreur s'est produite : ", error));
-  });
-</script>
-
-
-<h2>Top 3 Joueurs</h2>
-<ul id="top3List"></ul>
-
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    // Utilisez la méthode fetch pour récupérer les données des trois meilleurs scores depuis votre API
-    fetch("/top3Scores")
-      .then(response => response.json())
-      .then(data => {
-        const top3List = document.getElementById("top3List");
-
-        // Parcourez les données et créez des éléments HTML pour chaque joueur
-        data.forEach(joueur => {
-          const li = document.createElement("li");
-          li.textContent = `${joueur.nom}: ${joueur.score}`;
-          top3List.appendChild(li);
+                    // Parcourez les données et créez des éléments HTML pour chaque joueur
+                    data.forEach(joueur => {
+                        const li = document.createElement("li");
+                        li.textContent = `${joueur.nom}: ${joueur.score}`;
+                        top3List.appendChild(li);
+                    });
+                })
+                .catch(error => console.error("Une erreur s'est produite : ", error));
         });
-      })
-      .catch(error => console.error("Une erreur s'est produite : ", error));
-  });
-</script>
+    </script>
+</body>
 </html>
