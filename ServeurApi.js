@@ -54,6 +54,20 @@ app.get('/meilleurJoueur', (req, res) => {
   });
 });
 
+app.get('/top3Scores', (req, res) => {
+  const selectTop3ScoresSql = 'SELECT nom, score FROM scoreBoard ORDER BY score DESC LIMIT 3';
+
+  db.query(selectTop3ScoresSql, (err, result) => {
+    if (err) {
+      console.error('Erreur lors de la récupération des trois meilleurs scores :', err);
+      res.status(500).json({ error: 'Erreur lors de la récupération des trois meilleurs scores.' });
+      return;
+    }
+
+    res.status(200).json(result);
+  });
+});
+
 // Unity
 app.post('/savescore', (req, res) => {
   const { name, score } = req.body;
