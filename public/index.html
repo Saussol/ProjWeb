@@ -9,6 +9,8 @@
         body {
             text-align: center; /* Centrer le contenu horizontalement */
             font-family: Arial, sans-serif; /* Utilisation d'une police générique */
+            background: linear-gradient(to bottom, #000, #0000ff); /* Dégradé bleu sur fond noir */
+            color: white; /* Couleur du texte blanc */
         }
 
         #podium {
@@ -18,10 +20,12 @@
         }
 
         .podium-item {
-            background-color: #f2f2f2; /* Couleur de fond grise */
+            background-color: #0000aa; /* Couleur de fond bleu foncé */
+            border: 2px solid #fff; /* Contour blanc */
             padding: 20px; /* Espacement interne autour de chaque élément du podium */
             border-radius: 10px; /* Coins arrondis */
             flex-basis: calc(33.33% - 40px); /* Largeur de chaque élément du podium (1/3 de la largeur) */
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5); /* Ombre blanche légère */
         }
 
         .podium-item h3 {
