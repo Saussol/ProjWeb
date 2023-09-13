@@ -31,25 +31,22 @@ app.get('/', (req, res) => {
 });
 
 // Web
-app.get('/bestPlayers', (req, res) => {
-  const sql = 'SELECT nom, score FROM scoreBoard ORDER BY score DESC LIMIT 3';
-
-  db.query(sql, (err, results) => {
-    if (err) {
-      console.error('Erreur lors de la récupération des meilleurs joueurs :', err);
-      res.status(500).json({ error: 'Erreur lors de la récupération des meilleurs joueurs.' });
-      return;
-    }
-
-    if (results.length === 0) {
-      res.status(404).json({ error: 'Aucun joueur trouvé.' });
-      return;
-    }
-
-    console.log('Meilleurs joueurs récupérés depuis la base de données :', results);
-
-    res.json(results);
-  });
+document.addEventListener('DOMContentLoaded', () => {
+  fetch('/bestPlayers')
+    .then(response => response.json())
+    .then(data => {
+      const podium = document.querySelector('.podium');
+      data.forEach((player, index) => {
+        const playerElement = podium.querySelector(`#player${index + 1}`);
+        if (playerElement) {
+          playerElement.querySelector('span#player1Name').textContent = player.nom;
+          playerElement.querySelector('span#player1Score').textContent = player.score;
+        }
+      });
+    })
+    .catch(error => {
+      console.error('Erreur lors de la récupération des meilleurs joueurs :', error);
+    });
 });
 
 
