@@ -31,21 +31,18 @@ app.get('/', (req, res) => {
 });
 
 // Web
-const getBestPlayer = () => {
+app.get('/bestPlayer', (req, res) => {
   // Get the best player from the database
   const sql = `SELECT nom, score FROM scoreBoard ORDER BY score DESC LIMIT 1`;
   const results = db.query(sql);
 
   // Return the best player
   if (results.length > 0) {
-    return {
-      nom: results[0].nom,
-      score: results[0].score,
-    };
+    res.json(results[0]);
   } else {
-    return null;
+    res.status(404).send('Aucun joueur');
   }
-};
+});
 
 
 // Unity
