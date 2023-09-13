@@ -31,19 +31,27 @@ app.get('/', (req, res) => {
 });
 
 // Web
-// Récupération du score du meilleur joueur
-connection.query("SELECT nom, score FROM scoreBoard ORDER BY score DESC LIMIT 1", (err, rows) => {
-  if (err) {
-    console.error(err);
-    return;
-  }
+// Ajoutez cette route à votre API
+app.get('/meilleurJoueur', (req, res) => {
+  const selectMeilleurJoueurSql = 'SELECT nom, score FROM scoreBoard ORDER BY score DESC LIMIT 1';
 
-  // Affichage du nom et du score du meilleur joueur
-  meilleurJoueur.innerHTML = `
-    <h2>Meilleur joueur</h2>
-    <p>Nom: ${rows[0].nom}</p>
-    <p>Score: ${rows[0].score}</p>
-  `;
+  db.query(selectMeilleurJoueurSql, (err, result) => {
+    if (err) {
+      console.error('Erreur lors de la récupération du meilleur joueur :', err);
+      res.status(500).json({ error: 'Erreur lors de la récupération du meilleur joueur.' });
+      return;
+    }
+
+    const meilleurJoueur = result[0];
+
+    if (!meilleurJoueur) {
+      console.error('Aucun joueur trouvé.');
+      res.status(404).json({ error: 'Aucun joueur trouvé.' });
+      return;
+    }
+
+    res.status(200).json(meilleurJoueur);
+  });
 });
 
 // Unity
