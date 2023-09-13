@@ -33,7 +33,7 @@ app.get('/', (req, res) => {
 // Web
 const getBestPlayers = () => {
   // Get the best players from the database
-  const sql = `SELECT nom, score FROM joueurs ORDER BY score DESC LIMIT 3`;
+  const sql = `SELECT nom, score FROM scoreBorad ORDER BY score DESC LIMIT 3`;
   const results = db.query(sql);
 
   // Create an array of the best players
