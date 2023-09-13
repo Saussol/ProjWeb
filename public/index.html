@@ -85,18 +85,21 @@
 </body>
 
 <script>
-    fetch('/bestPlayers')
-      .then(response => response.json())
-      .then(data => {
-        const podium = document.querySelector('.podium');
-        data.forEach((player, index) => {
-          const playerElement = podium.querySelector(`#player${index + 1}`);
-          playerElement.querySelector('span#playerName').textContent = player.nom;
-          playerElement.querySelector('span#playerScore').textContent = player.score;
-        });
-      })
-      .catch(error => {
-        console.error('Erreur lors de la récupération des meilleurs joueurs :', error);
+    const getBestPlayers = async () => {
+      const response = await fetch('/bestPlayers');
+      const data = await response.json();
+  
+      const podium = document.querySelector('.podium');
+      data.forEach((player, index) => {
+        const playerElement = podium.querySelector(`#player${index + 1}`);
+        if (playerElement) {
+          playerElement.querySelector('span#player1Name').textContent = player.nom;
+          playerElement.querySelector('span#player1Score').textContent = player.score;
+        }
       });
+    };
+  
+    getBestPlayers();
   </script>
+
 </html>

@@ -31,23 +31,23 @@ app.get('/', (req, res) => {
 });
 
 // Web
-document.addEventListener('DOMContentLoaded', () => {
-  fetch('/bestPlayers')
-    .then(response => response.json())
-    .then(data => {
-      const podium = document.querySelector('.podium');
-      data.forEach((player, index) => {
-        const playerElement = podium.querySelector(`#player${index + 1}`);
-        if (playerElement) {
-          playerElement.querySelector('span#player1Name').textContent = player.nom;
-          playerElement.querySelector('span#player1Score').textContent = player.score;
-        }
-      });
-    })
-    .catch(error => {
-      console.error('Erreur lors de la récupération des meilleurs joueurs :', error);
+const getBestPlayers = () => {
+  // Get the best players from the database
+  const sql = `SELECT nom, score FROM joueurs ORDER BY score DESC LIMIT 3`;
+  const results = db.query(sql);
+
+  // Create an array of the best players
+  const players = [];
+  for (const row of results) {
+    players.push({
+      nom: row.nom,
+      score: row.score,
     });
-});
+  }
+
+  // Return the best players
+  return players;
+};
 
 
 // Unity
