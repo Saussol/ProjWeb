@@ -1,17 +1,65 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <!-- ... autres balises d'en-tête ... -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Web avec Jeu Unity</title>
+    <style>
+        body {
+            background-color: #111; /* Fond sombre */
+            color: #fff; /* Texte blanc */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100vh;
+        }
+        header {
+            text-align: center;
+            padding: 20px;
+        }
+        #unity-container {
+            text-align: center;
+            width: 100%;
+            max-width: 800px;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+        section {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .podium {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        .player {
+            border: 1px solid #fff;
+            padding: 10px;
+            width: 200px;
+        }
+    </style>
 </head>
 <body>
     <header>
         <h1>Bienvenue sur notre site web</h1>
     </header>
-    <section>
-        <h2>Meilleur Joueur</h2>
-        <p>Nom: <span id="bestPlayerName"></span></p>
-        <p>Score: <span id="bestPlayerScore"></span></p>
-    </section>
+    <div id="unity-container">
+        <!-- Intégration de votre jeu Unity ici -->
+        <!-- Remplacez cette section par le code d'intégration de votre jeu -->
+        <!-- Par exemple, vous pouvez utiliser une iframe pour intégrer votre jeu -->
+        <iframe src="votre_jeu_unity.html" width="800" height="600"></iframe>
+    </div>
     <nav>
         <ul>
             <li><a href="#">Accueil</a></li>
@@ -22,28 +70,25 @@
     </nav>
     <main>
         <section>
-            <h2>À propos de nous</h2>
-            <p>Nous sommes une entreprise dédiée à...</p>
+            <h2>Podium des Meilleurs Joueurs</h2>
+            <div class="podium">
+                <div class="player">
+                    <h3>Joueur 1</h3>
+                    <p>Nom: <span id="player1Name"></span></p>
+                    <p>Score: <span id="player1Score"></span></p>
+                </div>
+                <div class="player">
+                    <h3>Joueur 2</h3>
+                    <p>Nom: <span id="player2Name"></span></p>
+                    <p>Score: <span id="player2Score"></span></p>
+                </div>
+                <div class="player">
+                    <h3>Joueur 3</h3>
+                    <p>Nom: <span id="player3Name"></span></p>
+                    <p>Score: <span id="player3Score"></span></p>
+                </div>
+            </div>
         </section>
-        
     </main>
-    <footer>
-        <p>&copy; 2023 Notre Entreprise. Tous droits réservés.</p>
-    </footer>
-
-    <script>
-        // Code JavaScript pour récupérer et afficher le meilleur joueur
-        fetch('/bestPlayer')
-          .then(response => response.json())
-          .then(data => {
-            const bestPlayerName = document.getElementById('bestPlayerName');
-            const bestPlayerScore = document.getElementById('bestPlayerScore');
-    
-            bestPlayerName.textContent = data.nom;
-            bestPlayerScore.textContent = data.score;
-          })
-          .catch(error => console.error('Erreur lors de la récupération des données :', error));
-    </script>
-    
 </body>
 </html>
