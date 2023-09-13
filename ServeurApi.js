@@ -31,28 +31,26 @@ app.get('/', (req, res) => {
 });
 
 // Web
-app.get('/bestPlayer', (req, res) => {
-  const sql = 'SELECT nom, score FROM scoreBoard ORDER BY score DESC LIMIT 1';
+app.get('/bestPlayers', (req, res) => {
+  const sql = 'SELECT nom, score FROM scoreBoard ORDER BY score DESC LIMIT 3';
 
-  db.query(sql, (err, result) => {
+  db.query(sql, (err, results) => {
     if (err) {
-      console.error('Erreur lors de la récupération du meilleur joueur :', err);
-      res.status(500).json({ error: 'Erreur lors de la récupération du meilleur joueur.' });
+      console.error('Erreur lors de la récupération des meilleurs joueurs :', err);
+      res.status(500).json({ error: 'Erreur lors de la récupération des meilleurs joueurs.' });
       return;
     }
 
-    if (result.length === 0) {
+    if (results.length === 0) {
       res.status(404).json({ error: 'Aucun joueur trouvé.' });
       return;
     }
 
-    const bestPlayer = result[0];
-    console.log('Meilleur joueur récupéré depuis la base de données :', bestPlayer);
+    console.log('Meilleurs joueurs récupérés depuis la base de données :', results);
 
-    res.json(bestPlayer);
+    res.json(results);
   });
 });
-
 
 
 // Unity
