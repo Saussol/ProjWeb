@@ -12,9 +12,9 @@ app.use(cors());
 // Configuration de la connexion à la base de données MySQL
 const db = mysql.createConnection({
   host: 'sql11.freemysqlhosting.net',
-  user: 'sql11645476',
-  password:'hli67ET6XJ',
-  database: 'sql11645476'
+  user: 'sql11647688',
+  password:'S9yZs2bsdW',
+  database: 'sql11647688'
 });
 
 // Connexion à la base de données
