@@ -1,0 +1,26 @@
+/* Styles pour l'image */
+#portrait img {
+    border-radius: 50%; /* Rendre l'image circulaire */
+    border: 5px solid white; /* Ajouter une bordure blanche autour de l'image */
+}
+
+/* Styles pour les éléments du podium */
+#podium {
+    background-color: rgba(0, 0, 0, 0.7); /* Fond noir semi-transparent */
+}
+
+.podium-item {
+    padding: 10px; /* Espacement interne pour les éléments du podium */
+}
+
+.podium-item h3 {
+    font-size: 24px; /* Taille de police pour les titres */
+    font-weight: bold; /* Texte en gras pour les titres */
+    margin-bottom: 5px; /* Espacement sous les titres */
+}
+
+.podium-item p {
+    font-size: 18px; /* Taille de police pour les noms et les scores */
+    margin: 0; /* Supprimer la marge par défaut des paragraphes */
+    color: #FFD700; /* Couleur du texte en doré */
+}
