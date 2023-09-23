@@ -24,3 +24,14 @@
     margin: 0; /* Supprimer la marge par défaut des paragraphes */
     color: #FFD700; /* Couleur du texte en doré */
 }
+
+body {
+    text-align: center; /* Centrer le contenu horizontalement */
+    font-family: Arial, sans-serif; /* Utilisation d'une police générique */
+    background-image: url('./pitot.jpg'); /* Image de fond */
+    background-size: cover; /* Ajustement de la taille de l'image de fond pour couvrir l'écran */
+    background-position: center center; /* Positionnement de l'image de fond au centre */
+    background-repeat: no-repeat; /* Ne pas répéter l'image de fond */
+    color: white; /* Couleur du texte en blanc */
+    margin: 0; /* Supprimer la marge par défaut du corps de la page */
+}
