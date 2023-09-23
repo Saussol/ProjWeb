@@ -6,7 +6,16 @@
 
 /* Styles pour les éléments du podium */
 #podium {
-    background-color: rgba(0, 0, 0, 0.7); /* Fond noir semi-transparent */
+    flex-basis: 60%; /* Réduisez la largeur du podium */
+    display: flex;
+    flex-direction: column; /* Mettez les éléments du podium en colonne */
+    align-items: center; /* Centrez les éléments horizontalement */
+    justify-content: center; /* Centrez les éléments verticalement */
+    margin: 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
 }
 
 .podium-item {
@@ -34,4 +43,14 @@ body {
     background-repeat: no-repeat; /* Ne pas répéter l'image de fond */
     color: white; /* Couleur du texte en blanc */
     margin: 0; /* Supprimer la marge par défaut du corps de la page */
+}
+
+#header {
+    padding: 80px 0; /* Augmentez la marge en haut et en bas du titre */
+    text-align: center; /* Centrer horizontalement */
+}
+
+#header h2 {
+    margin: 0;
+    font-size: 36px; /* Réduisez la taille de la police du titre si nécessaire */
 }
