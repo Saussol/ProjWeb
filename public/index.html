@@ -9,14 +9,12 @@
         body {
             text-align: center;
             font-family: Arial, sans-serif;
-            /* Supprimez la propriété background-color pour laisser place à l'image de fond */
             background-color: #000;
             color: white;
             margin: 0;
-            /* Ajoutez la propriété background-image pour définir l'image de fond */
-            /*background-image: url('./pitot.jpg'); /* Remplacez 'votre_image.jpg' par le chemin de votre image */
-            background-size: cover; /* Redimensionner l'image pour couvrir tout l'arrière-plan */
-            background-attachment: fixed; /* Fixez l'image pour qu'elle reste en arrière-plan lorsque vous faites défiler la page */
+            background-image: url('./pitot.jpg');
+            background-size: cover;
+            background-attachment: fixed;
         }
 
         #header {
@@ -30,39 +28,36 @@
         #container {
             display: flex;
             flex-direction: column; /* Afficher les éléments en colonne */
-            justify-content: center; /* Centrer verticalement les éléments */
             align-items: center; /* Centrer horizontalement les éléments */
             height: 100vh;
         }
 
-        #portrait {
-            flex-basis: 30%; /* Largeur de la partie gauche (30% de la largeur) */
-            padding: 20px;
+        #title {
+            font-size: 24px;
+            margin-bottom: 20px; /* Ajoutez un espace sous le titre */
         }
 
         #podium {
-            flex-basis: auto; /* Largeur de la partie droite (70% de la largeur) */
-            display: flex; /* Utilisation d'un affichage flex pour aligner les éléments horizontalement */
-            flex-direction: column; /* Afficher les éléments en colonne */
-            align-items: center; /* Centrer horizontalement les éléments */
-            margin: 20px; /* Marge autour du podium */
-            background-color: #000; /* Couleur de fond noire */
-            border-radius: 10px; /* Coins arrondis */
-            padding: 20px; /* Espacement interne autour du podium */
-            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5); /* Ombre blanche légère */
+            display: flex;
+            flex-direction: row; /* Afficher les éléments du podium en ligne */
+            align-items: center; /* Centrer verticalement les éléments */
+            margin: 20px;
+            background-color: #000;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
             height: auto;
         }
 
         .podium-item {
-            flex-basis: auto; /* Ajustez la largeur automatiquement pour s'adapter au contenu */
+            flex: 1; /* Ajustez la largeur automatiquement pour s'adapter au contenu */
             text-align: center;
             margin: 10px;
-            align-self: center;
         }
 
         .podium-item h3 {
-            margin: 0; /* Supprimer la marge supérieure par défaut du titre */
-            color: white; /* Couleur du texte en blanc */
+            margin: 0;
+            color: white;
         }
     </style>
 </head>
@@ -71,6 +66,7 @@
         <h2>Top 3 Joueurs</h2>
     </div>
     <div id="container">
+        <h1 id="title">Classement des joueurs</h1> <!-- Ajout du titre au-dessus du podium -->
         <div id="podium">
             <div class="podium-item" id="firstPlace">
                 <h3>1er</h3>
