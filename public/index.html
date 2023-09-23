@@ -41,20 +41,23 @@
         }
 
         #podium {
-            flex-basis: 70%; /* Largeur de la partie droite (70% de la largeur) */
+            flex-basis: auto; /* Largeur de la partie droite (70% de la largeur) */
             display: flex; /* Utilisation d'un affichage flex pour aligner les éléments horizontalement */
-            justify-content: space-around; /* Répartir les éléments avec un espace égal */
+            flex-direction: column; /* Afficher les éléments en colonne */
+            align-items: center; /* Centrer horizontalement les éléments */
             margin: 20px; /* Marge autour du podium */
             background-color: #000; /* Couleur de fond noire */
             border-radius: 10px; /* Coins arrondis */
             padding: 20px; /* Espacement interne autour du podium */
             box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5); /* Ombre blanche légère */
+            height: auto;
         }
 
         .podium-item {
-            flex-basis: calc(33.33% - 20px); /* Réduisez la largeur des éléments du podium */
+            flex-basis: auto; /* Ajustez la largeur automatiquement pour s'adapter au contenu */
             text-align: center;
             margin: 10px;
+            align-self: center;
         }
 
         .podium-item h3 {
@@ -68,9 +71,6 @@
         <h2>Top 3 Joueurs</h2>
     </div>
     <div id="container">
-        <div id="portrait">
-            <img src="./pitot.jpg" alt="pitot Image">
-        </div>
         <div id="podium">
             <div class="podium-item" id="firstPlace">
                 <h3>1er</h3>
@@ -89,8 +89,6 @@
             </div>
         </div>
     </div>
-
-    <div id="portrait"></div>
     
     <script>
         document.addEventListener("DOMContentLoaded", function() {
