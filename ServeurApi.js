@@ -8,6 +8,7 @@ const port = 3000;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
+app.use(express.static('public'));
 
 // Configuration de la connexion à la base de données MySQL
 const db = mysql.createConnection({
